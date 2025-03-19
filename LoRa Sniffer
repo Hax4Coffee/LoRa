@@ -1,3 +1,23 @@
+# This script listens for LoRa packets using an SX127x transceiver module and logs the received data.
+# Requirements
+#  1- LoRa module (SX1276/SX1278).
+#  2- Raspberry Pi or a Linux machine with SPI support.
+#  3- Python with pySX127x installed.
+#  Installation
+bash
+CopyEdit
+pip install pySX127x
+
+
+
+
+
+
+
+
+
+
+
 python
 CopyEdit
 from SX127x.LoRa import LoRa

@@ -1,0 +1,26 @@
+python
+CopyEdit
+from SX127x.LoRa import LoRa
+from SX127x.board_config import BOARD
+import time
+import binascii
+
+BOARD.setup()
+
+class LoRaSniffer(LoRa):
+    def __init__(self, verbose=False):
+        super(LoRaSniffer, self).__init__()
+        self.set_mode(MODE.SLEEP)
+        self.set_freq(915)  # Change frequency as needed
+        self.set_pa_config(pa_select=1)
+        self.set_rx_crc(True)
+        self.verbose = verbose
+
+    def on_rx_done(self):
+        payload = self.read_payload(nocheck=True)
+        hex_payload = binascii.hexlify(payload).decode()
+        print(f"[+] Captured Packet: {hex_payload}")
+        self.set_mode(MODE.RXCONT)
+
+lora = LoRaSniffer()
+lora.start()
